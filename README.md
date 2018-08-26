@@ -37,3 +37,5 @@ And now if we ```cd``` into the directory that was just created, we can run the 
 ```
 npm start
 ```
+---
+Disclaimer: This tutorial was created for SIG-Web at the Missouri University of Science and Technology.
