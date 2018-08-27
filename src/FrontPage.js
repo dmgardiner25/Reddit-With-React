@@ -2,11 +2,26 @@ import React from 'react';
 import './FrontPage.css';
 
 class FrontPage extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      formEnable: false
+    }
+  }
+
+  handleOpenForm = () => {
+    this.setState({ formEnable: true })
+  }
+
+  handleCloseForm = () => {
+    this.setState({ formEnable: false })
+  }
+
   render() {
     return (
       <div className='front-page'>
-        <Posts />
-        <SubmitPost />
+        <Posts formEnable={this.state.formEnable} closeForm={this.handleCloseForm}/>
+        <SubmitPost openForm={this.handleOpenForm}/>
       </div>
     );
   }
@@ -28,7 +43,7 @@ class Posts extends React.Component {
     function randomizeVotes() {
       return Math.floor((Math.random() * 50) + 15);
     }
-  
+
     const posts = [
       {
         id: 1,
@@ -63,11 +78,11 @@ class Posts extends React.Component {
         user: 'ramzo'
       },
     ];
-  
+
     this.setState({ posts: posts });
   }
 
-  handlePostUpVote = (postId) => {
+  handleUpVote = (postId) => {
     const nextPosts = this.state.posts.map((post) => {
       if (post.id === postId) {
         return Object.assign({}, post, {
@@ -82,7 +97,7 @@ class Posts extends React.Component {
     });
   }
 
-  handlePostDownVote = (postId) => {
+  handleDownVote = (postId) => {
     const nextPosts = this.state.posts.map((post) => {
       if (post.id === postId) {
         return Object.assign({}, post, {
@@ -95,6 +110,18 @@ class Posts extends React.Component {
     this.setState({
       posts: nextPosts,
     });
+  }
+
+  handleFormSubmit = (timer) => {
+    this.props.closeForm();
+    this.setState({ posts: this.state.posts.concat({
+      title: timer.title,
+      description: timer.description,
+      community: timer.community,
+      user: timer.username,
+      votes: 1,
+      id: timer.title + Math.floor((Math.random() * 50))
+    })});
   }
 
   render() {
@@ -110,25 +137,90 @@ class Posts extends React.Component {
         votes={post.votes}
         community={post.community}
         user={post.user}
-        upVote={this.handlePostUpVote}
-        downVote={this.handlePostDownVote}
+        upVote={this.handleUpVote}
+        downVote={this.handleDownVote}
       />
     ));
     return (
       <div className='posts'>
-        <PostForm />
+        <PostForm
+          formEnable={this.props.formEnable}
+          closeForm={this.props.closeForm}
+          formSubmit={this.handleFormSubmit}
+        />
         {postComponents}
       </div>
     );
   }
 }
 
+class PostForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      title: '',
+      description: '',
+      community: '',
+      username: ''
+    }
+  }
+
+  handleTitleChange = (e) => {
+    this.setState({ title: e.target.value });
+  }
+
+  handleDescriptionChange = (e) => {
+    this.setState({ description: e.target.value });
+  }
+
+  handleCommunityChange = (e) => {
+    this.setState({ community: e.target.value });
+  }
+
+  handleUsernameChange = (e) => {
+    this.setState({ username: e.target.value });
+  }
+
+  handleFormSubmit = () => {
+    this.props.formSubmit({
+      title: this.state.title,
+      description: this.state.description,
+      community: this.state.community,
+      username: this.state.username
+    });
+  }
+
+  render() {
+    if(this.props.formEnable) {
+      return (
+        <div className='post-form'>
+          <div className='header'>
+            <i className='glyphicon glyphicon-comment'/>
+            Post
+          </div>
+          <form onSubmit={this.handleFormSubmit} className='body'>
+            <input onChange={this.handleTitleChange} type='text' className='title' placeholder='Title' />
+            <textarea onChange={this.handleDescriptionChange} type='text' className='body-description' placeholder='Text (Optional)' />
+            <input onChange={this.handleCommunityChange} type='text' className='community' placeholder='Community' />
+            <input onChange={this.handleUsernameChange} type='text' className='username' placeholder='Username' />
+            <button type='submit' className="btn btn-primary">Post</button>
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <div></div>
+      );
+    }
+  }
+}
+
 class Post extends React.Component {
-  handleUpVote = () => (
+  upVote = () => (
     this.props.upVote(this.props.id)
   );
 
-  handleDownVote = () => (
+  downVote = () => (
     this.props.downVote(this.props.id)
   );
 
@@ -137,11 +229,11 @@ class Post extends React.Component {
       <div className='post'>
         <div className='voting-wrapper'>
           <div className='voting'>
-            <a onClick={this.handleUpVote}>
+            <a onClick={this.upVote}>
               <i className='glyphicon glyphicon-menu-up'/>
             </a>
             {this.props.votes}
-            <a onClick={this.handleDownVote}>
+            <a onClick={this.downVote}>
               <i className='glyphicon glyphicon-menu-down'/>
             </a>
           </div>
@@ -154,7 +246,7 @@ class Post extends React.Component {
           <div className='community'>
             {this.props.community} - Posted by {this.props.user}
           </div>
-        </div> 
+        </div>
         <div className='description'>
           <div className='gray-box'></div>
           <div className='desc-text'>
@@ -170,27 +262,7 @@ class SubmitPost extends React.Component {
   render() {
     return (
       <div className='submit-post'>
-        <button type="button" className="btn btn-primary create">CREATE POST</button>
-      </div>
-    );
-  }
-}
-
-class PostForm extends React.Component {
-  render() {
-    return (
-      <div className='post-form'>
-        <div className='header'>
-          <i className='glyphicon glyphicon-comment'/>
-          Post
-        </div>
-        <div className='body'>
-          <input type='text' className='title' placeholder='Title' />
-          <textarea type='text' className='body-description' placeholder='Text (Optional)' />
-          <input type='text' className='community' placeholder='Community' />
-          <input type='text' className='username' placeholder='Username' />
-          <button type='submit' class="btn btn-primary">Post</button>
-        </div>
+        <button onClick={this.props.openForm} type="button" className="btn btn-primary create">CREATE POST</button>
       </div>
     );
   }
