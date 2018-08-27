@@ -21,7 +21,7 @@ class FrontPage extends React.Component {
     return (
       <div className='front-page'>
         <Posts formEnable={this.state.formEnable} closeForm={this.handleCloseForm}/>
-        <SubmitPost openForm={this.handleOpenForm}/>
+        <CreatePost openForm={this.handleOpenForm}/>
       </div>
     );
   }
@@ -258,7 +258,7 @@ class Post extends React.Component {
   }
 }
 
-class SubmitPost extends React.Component {
+class CreatePost extends React.Component {
   render() {
     return (
       <div className='submit-post'>
