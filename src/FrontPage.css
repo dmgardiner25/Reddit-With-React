@@ -7,21 +7,68 @@ body {
   background: #DAE0E6;
 }
 
+.front-page {
+  display: flex;
+}
+
 .posts {
   text-align: center;
+  width: 72%;
+  margin: 30px 30px -30px 30px;
+}
+
+.post-form {
+  margin-bottom: 30px;
+  border: 1px solid #CCCCCC;
+  background: white;
+}
+
+.header {
+  padding: 15px;
+  color: #0079D3;
+  font-size: 18px;
+  border-bottom: 2px solid #0079D3;
+}
+
+.header .glyphicon-comment {
+  margin-right: 10px;
+}
+
+.body {
+  padding: 15px;
+  text-align: left;
+  overflow: auto;
+}
+
+.body .title {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.body-description {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.body .community, .body .username {
+  float: left;
+  margin-right: 10px;
+}
+
+.body .btn {
+  float: right;
+  background: #0079D3;
 }
 
 .post {
-  width: 72%;
-  margin: 30px 30px -30px 30px;
   border: 1px solid #CCCCCC;
-  border-top: none;
+  border-bottom: none;
   background: white;
   overflow: hidden;
 }
 
-.post:first-child {
-  border-top: 1px solid #CCCCCC; 
+.post:last-child {
+  border-bottom: 1px solid #CCCCCC; 
 }
 
 .voting-wrapper {
@@ -37,7 +84,7 @@ body {
   flex-direction: column;
 }
 
-.glyphicon-comment {
+.post .glyphicon-comment {
   float: left;
   font-size: 24px;
   margin-top: 28px;
@@ -77,4 +124,24 @@ body {
 
 .post:hover .description {
   height: auto;
+}
+
+.submit-post {
+  position: relative;
+  float: right;
+  height: 200px;
+  width: 22%;
+  margin-top: 30px;
+  margin-right: 30px;
+  background: white;
+  border: 1px solid #CCCCCC;
+  text-align: center;
+}
+
+.create {
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  bottom: 15px;
+  background: #0079D3 !important;
 }

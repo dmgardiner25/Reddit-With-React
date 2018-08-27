@@ -6,6 +6,7 @@ class FrontPage extends React.Component {
     return (
       <div className='front-page'>
         <Posts />
+        <SubmitPost />
       </div>
     );
   }
@@ -115,6 +116,7 @@ class Posts extends React.Component {
     ));
     return (
       <div className='posts'>
+        <PostForm />
         {postComponents}
       </div>
     );
@@ -158,6 +160,36 @@ class Post extends React.Component {
           <div className='desc-text'>
             {this.props.description}
           </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class SubmitPost extends React.Component {
+  render() {
+    return (
+      <div className='submit-post'>
+        <button type="button" className="btn btn-primary create">CREATE POST</button>
+      </div>
+    );
+  }
+}
+
+class PostForm extends React.Component {
+  render() {
+    return (
+      <div className='post-form'>
+        <div className='header'>
+          <i className='glyphicon glyphicon-comment'/>
+          Post
+        </div>
+        <div className='body'>
+          <input type='text' className='title' placeholder='Title' />
+          <textarea type='text' className='body-description' placeholder='Text (Optional)' />
+          <input type='text' className='community' placeholder='Community' />
+          <input type='text' className='username' placeholder='Username' />
+          <button type='submit' class="btn btn-primary">Post</button>
         </div>
       </div>
     );
