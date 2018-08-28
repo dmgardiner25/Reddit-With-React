@@ -83,7 +83,7 @@ class Posts extends React.Component {
   }
 
   handleUpVote = (postId) => {
-    const nextPosts = this.state.posts.map((post) => {
+    const updatedPosts = this.state.posts.map((post) => {
       if (post.id === postId) {
         return Object.assign({}, post, {
           votes: post.votes + 1,
@@ -93,12 +93,12 @@ class Posts extends React.Component {
       }
     });
     this.setState({
-      posts: nextPosts,
+      posts: updatedPosts,
     });
   }
 
   handleDownVote = (postId) => {
-    const nextPosts = this.state.posts.map((post) => {
+    const updatedPosts = this.state.posts.map((post) => {
       if (post.id === postId) {
         return Object.assign({}, post, {
           votes: post.votes - 1,
@@ -108,7 +108,7 @@ class Posts extends React.Component {
       }
     });
     this.setState({
-      posts: nextPosts,
+      posts: updatedPosts,
     });
   }
 
