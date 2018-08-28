@@ -1,4 +1,4 @@
-View a live demo [here]().
+View a live demo [here](https://www.davidgardiner.me/reddit).
 
 # Reddit With React
 [Reddit](http://www.reddit.com) is one of the most popular<sup>[[1]](https://www.digitaltrends.com/computing/reddit-more-popular-than-facebook-in-2018/)</sup> sites in the US, so it's more than likely that you have at least heard of it. Throughout this tutorial, we will walk through creating the most basic functions of the site to help you learn the important parts of React. Other than popularity, why was it picked for this tutorial? Its post creation and voting systems utilize two important aspects of React (which we will cover later on).
