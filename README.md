@@ -40,6 +40,18 @@ And now if we `cd` into the directory that was just created, we can run the app 
 npm start
 ```
 
+If you are wanting to clone this repo, run the following sequence of code:
+```
+# Clone the repo
+git clone https://github.com/dmgardiner25/Reddit-With-React.git
+
+# cd into the directory
+cd Reddit-With-React
+
+# Install missing dependencies
+npm i
+```
+
 ## Components
 A good first step when starting a project in React is to figure out how you want to break up the app into different components. It's also good to make a rough sketch of what you want your app to look like and draw boxes around each component ([example](https://reactjs.org/static/thinking-in-react-components-eb8bda25806a89ebdc838813bdfa3601-82965.png) from the official site). For this app, there's two main things that we want to accomplish: the ability to view posts and the ability to create posts. We aren't going to worry about having to sign in or even save data on page refresh because that's a little more advanced. Below is a breakdown of the components we will use (minus the post form):
 
@@ -114,7 +126,7 @@ class Posts extends React.Component {
       <div className='posts'>
         <Post
           title={'Test Title'}
-          description={'Hello, I'm a description!'}
+          description={'Hello, I\'m a description!'}
           votes={1337}
           community={'r/webdev'}
           user={'dgardiner'}
