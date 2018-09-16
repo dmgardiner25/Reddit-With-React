@@ -363,7 +363,6 @@ return (
   <div className='posts'>
     <PostForm
       formEnable={this.props.formEnable}
-      closeForm={this.props.closeForm}
       formSubmit={this.handleFormSubmit}
     />
     {postComponents}
