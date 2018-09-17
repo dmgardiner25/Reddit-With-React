@@ -259,13 +259,37 @@ class Post extends React.Component {
 }
 
 class SidePanel extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      create: false
+    }
+  }
+
+  handleFormOpen = () => {
+    this.setState({ create: true })
+  }
+
+  handleFormClose = () => {
+    this.setState({ create: false })
+  }
+
   render() {
-    return (
-      <div className='side-panel'>
-        <CreatePost openForm={this.props.openForm}/>
-        <LoginForm />
-      </div>
-    );
+    if(!this.state.create) {
+      return (
+        <div className='side-panel'>
+          <CreatePost openForm={this.props.openForm}/>
+          <LoginForm openForm={this.handleFormOpen}/>
+        </div>
+      );
+    } else {
+      return (
+        <div className='side-panel'>
+          <CreatePost openForm={this.props.openForm}/>
+          <CreateForm closeForm={this.handleFormClose}/>
+        </div>
+      );
+    }
   }
 }
 
@@ -313,7 +337,50 @@ class LoginForm extends React.Component {
         <form onSubmit={this.handleFormSubmit}>
           <input onChange={this.handleUsernameChange} type='text' placeholder='Username' />
           <input onChange={this.handlePasswordChange} type='password' placeholder='Password' />
+          <a onClick={this.props.openForm}><p>Create Account</p></a>
           <button type='submit' className="btn btn-primary">Login</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+class CreateForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+
+  handleUsernameChange = (e) => {
+    this.setState({ username: e.target.value });
+  }
+
+  handlePasswordChange = (e) => {
+    this.setState({ password: e.target.value });
+  }
+
+  handleFormSubmit = () => {
+    this.props.closeForm();
+    axios.post('/create', {
+      username: this.state.username,
+      password: this.state.password
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    })
+  }
+
+  render() {
+    return (
+      <div className='login-form'>
+        <form onSubmit={this.handleFormSubmit}>
+          <input onChange={this.handleUsernameChange} type='text' placeholder='Username' />
+          <input onChange={this.handlePasswordChange} type='password' placeholder='Password' />
+          <button type='submit' className="btn btn-primary">Create</button>
         </form>
       </div>
     );

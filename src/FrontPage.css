@@ -168,6 +168,13 @@ body {
   margin-right: 1%;
 }
 
+.login-form p {
+  position: relative;
+  margin-left: 1.5%;
+  margin-top: 10px;
+  float: left;
+}
+
 .login-form .btn {
   float: right;
   background: #0079D3;
