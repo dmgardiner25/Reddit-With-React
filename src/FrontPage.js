@@ -321,7 +321,7 @@ class LoginForm extends React.Component {
   }
 
   handleFormSubmit = () => {
-    axios.post('/login', {
+    axios.post('http://localhost:5000/login/', {
       username: this.state.username,
       password: this.state.password
     }).then(function(response) {
@@ -364,7 +364,7 @@ class CreateForm extends React.Component {
 
   handleFormSubmit = () => {
     this.props.closeForm();
-    axios.post('/create', {
+    axios.post('http://localhost:5000/signup/', {
       username: this.state.username,
       password: this.state.password
     }).then(function(response) {
