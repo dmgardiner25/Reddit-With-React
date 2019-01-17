@@ -76,6 +76,7 @@ body {
   height: 500%;
   padding: 10px;
   background: #F7F9FA;
+  width: 50px;
 }
 
 .voting {
@@ -109,13 +110,14 @@ body {
 
 .description {
   margin-top: 80px;
-  padding-left: 7px;
   text-align: left;
-  border-left: 38px solid #F7F9FA;
+  margin-left: 50px;
 }
 
 .desc-text {
   white-space: pre-wrap;
+  padding-left: 5px;
+  position: relative;
 }
 
 .post .description {
@@ -124,6 +126,10 @@ body {
 
 .post:hover .description {
   height: auto;
+}
+
+.post:hover .voting-wrapper {
+  padding-bottom: 30px;
 }
 
 .side-panel {

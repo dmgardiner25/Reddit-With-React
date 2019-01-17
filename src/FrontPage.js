@@ -181,7 +181,8 @@ class PostForm extends React.Component {
     this.setState({ username: e.target.value });
   }
 
-  handleFormSubmit = () => {
+  handleFormSubmit = (e) => {
+    e.preventDefault();
     this.props.formSubmit({
       title: this.state.title,
       description: this.state.description,
@@ -248,7 +249,6 @@ class Post extends React.Component {
           </div>
         </div>
         <div className='description'>
-          <div className='gray-box'></div>
           <div className='desc-text'>
             {this.props.description}
           </div>
@@ -279,14 +279,14 @@ class SidePanel extends React.Component {
       return (
         <div className='side-panel'>
           <CreatePost openForm={this.props.openForm}/>
-          <LoginForm openForm={this.handleFormOpen}/>
+          <SignInForm openForm={this.handleFormOpen}/>
         </div>
       );
     } else {
       return (
         <div className='side-panel'>
           <CreatePost openForm={this.props.openForm}/>
-          <CreateForm closeForm={this.handleFormClose}/>
+          <SignUpForm closeForm={this.handleFormClose}/>
         </div>
       );
     }
@@ -303,7 +303,7 @@ class CreatePost extends React.Component {
   }
 }
 
-class LoginForm extends React.Component {
+class SignInForm extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -325,9 +325,9 @@ class LoginForm extends React.Component {
       username: this.state.username,
       password: this.state.password
     }).then(function(response) {
-      console.log(response);
+      alert(response);
     }).catch(function(error) {
-      console.log(error);
+      alert(error);
     })
   }
 
@@ -345,7 +345,7 @@ class LoginForm extends React.Component {
   }
 }
 
-class CreateForm extends React.Component {
+class SignUpForm extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -368,9 +368,9 @@ class CreateForm extends React.Component {
       username: this.state.username,
       password: this.state.password
     }).then(function(response) {
-      console.log(response);
+      alert(response);
     }).catch(function(error) {
-      console.log(error);
+      alert(error);
     })
   }
 
